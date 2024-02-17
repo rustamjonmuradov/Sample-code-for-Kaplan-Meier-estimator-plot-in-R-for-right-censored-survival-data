@@ -1,1 +1,17 @@
-> library(survival)
+# Install and load the necessary packages
+install.packages("survival")
+library(survival)
+
+# Create example survival data with right censoring
+set.seed(123)
+time <- c(5, 8, 12, 15, 18, 20, 25, 30, 35, 40)
+status <- c(1, 1, 1, 0, 1, 1, 0, 1, 1, 0)  # 1: event occurred, 0: right-censored
+data <- data.frame(time = time, status = status)
+
+# Fit Kaplan-Meier estimator
+km_fit <- survfit(Surv(time, status) ~ 1)
+
+# Plot Kaplan-Meier estimator
+plot(km_fit, main = "Kaplan-Meier Estimator",
+     xlab = "Time", ylab = "Survival Probability",
+     col = "blue", lwd = 2)
